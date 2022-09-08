@@ -18,13 +18,13 @@ public class UserController {
         return "Hello";
     }
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userService.getUsers();
+    public List<User> getAll() {
+        return userService.getAll();
     }
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.addUser(user));
+        return ResponseEntity.ok(userService.add(user));
     }
 
 

@@ -1,7 +1,6 @@
 package pl.marketapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +22,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.add(user));
+    public boolean register(@RequestBody User user) {
+        return userService.add(user);
+    }
+
+    @PostMapping("/auth")
+    public String login(@RequestBody User user) {
+        return userService.authenticate(user);
     }
 
 

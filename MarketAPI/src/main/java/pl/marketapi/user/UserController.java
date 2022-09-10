@@ -16,6 +16,7 @@ public class UserController {
     public String sayHello() {
         return "Hello";
     }
+
     @GetMapping("/users")
     public List<User> getAll() {
         return userService.getAll();
@@ -28,7 +29,11 @@ public class UserController {
 
     @PostMapping("/auth")
     public String login(@RequestBody User user) {
-        return userService.authenticate(user);
+        try {
+            return userService.authenticate(user);
+        } catch (Exception e) {
+            return "Authentication failed";
+        }
     }
 
 

@@ -1,12 +1,10 @@
 package pl.marketapi.user;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.marketapi.security.JwtProvider;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +16,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JwtProvider jwtProvider;
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -41,23 +41,15 @@ public class UserService {
         return true;
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
-
-    public String authenticate(User user) {
+    //TODO custom exceptions
+    public String authenticate(User user) throws Exception {
         String username = user.getUsername();
         User dbUser = userRepository.findByUsername(username);
 
-        if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-            return Jwts.builder()
-                    .setSubject(username)
-                    .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + 60000))
-                    .signWith(SignatureAlgorithm.HS512, System.getenv("SECRET"))
-                    .compact();
-        } else return "Invalid username or password";
+        if (dbUser == null || !passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
+            throw new Exception("User doesn't exist or invalid password");
+        }
 
+        return jwtProvider.generateJWT(dbUser);
     }
 }

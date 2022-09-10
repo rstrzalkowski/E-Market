@@ -1,6 +1,6 @@
 package pl.marketapi.security;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,24 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
-    public DataSource dataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-
-        dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5455/postgresDB");
-        dataSourceBuilder.username("postgresUser");
-        dataSourceBuilder.password("postgresPW");
-
-        return dataSourceBuilder.build();
-    }
+    @Autowired
+    JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder encoder() {
@@ -37,10 +27,12 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        //.mvcMatchers("/users").hasRole("ADMIN")
-                        .anyRequest().permitAll()
+                        .mvcMatchers("/auth").permitAll()
+                        .mvcMatchers("/register").permitAll()
+                        .mvcMatchers("/users").hasRole("ADMIN")
+                        .anyRequest().authenticated()
 
-                );
+                ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

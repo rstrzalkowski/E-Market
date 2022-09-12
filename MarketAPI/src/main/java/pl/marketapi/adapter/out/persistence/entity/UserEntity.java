@@ -1,33 +1,31 @@
-package pl.marketapi.user;
+package pl.marketapi.adapter.out.persistence.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Entity(name = "users")
+@Data
 @AllArgsConstructor
-@Entity
-@Table(name = "users")
-public class User {
+@NoArgsConstructor
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
     private Long id;
 
     @Column
     private String username;
-    @Column
-    private String email;
+
     @Column
     private String password;
+
+    @Column
+    private String email;
+
     @Column
     private boolean enabled;
-    @Column
-    private String role;
+
 }

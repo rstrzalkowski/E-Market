@@ -1,4 +1,4 @@
-package pl.marketapi.security;
+package pl.marketapi.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +27,8 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .mvcMatchers("/auth").permitAll()
-                        .mvcMatchers("/register").permitAll()
-                        .mvcMatchers("/users").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .mvcMatchers("/test").authenticated()
+                        .anyRequest().permitAll()
 
                 ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

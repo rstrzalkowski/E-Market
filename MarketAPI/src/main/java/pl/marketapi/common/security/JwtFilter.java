@@ -1,7 +1,8 @@
-package pl.marketapi.security;
+package pl.marketapi.common.security;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,16 +29,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String jwt = getToken(request);
 
-        if (jwt == null) throw new ServletException("Wrong token");
+        if (jwt == null || !jwtProvider.validateToken(jwt)) {
 
-        Claims claims = jwtProvider.parseJWT(jwt).getBody();
-        //System.out.println(claims);
+            response.sendError(HttpStatus.UNAUTHORIZED.value());
 
-        //TODO if jwt ok -> setAuthentication, change hardcode role
-        SecurityContextHolder.getContext()
-                .setAuthentication(new UsernamePasswordAuthenticationToken(claims.getSubject(), null, Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))));
-        
-        filterChain.doFilter(request, response);
+        } else {
+            Claims claims = jwtProvider.parseJWT(jwt).getBody();
+            //System.out.println(claims);
+
+            //TODO if jwt ok -> setAuthentication, change hardcode role
+            SecurityContextHolder.getContext()
+                    .setAuthentication(new UsernamePasswordAuthenticationToken(claims.getSubject(), null, Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+
+            filterChain.doFilter(request, response);
+        }
+
     }
 
     @Override

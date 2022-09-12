@@ -1,4 +1,4 @@
-package pl.marketapi.common.security;
+package pl.marketapi.security;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

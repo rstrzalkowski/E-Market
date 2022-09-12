@@ -1,7 +1,8 @@
-package pl.marketapi.common.security;
+package pl.marketapi.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
+import pl.marketapi.entity.User;
 
 import java.util.Date;
 
@@ -9,9 +10,9 @@ import java.util.Date;
 public class JwtProvider {
 
 
-    public String generateJWT(String username) {
+    public String generateJWT(User user) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 60000))
                 .signWith(SignatureAlgorithm.HS512, System.getenv("SECRET"))

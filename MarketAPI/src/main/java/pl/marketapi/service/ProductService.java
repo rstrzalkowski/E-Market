@@ -1,16 +1,15 @@
 package pl.marketapi.service;
 
-import pl.marketapi.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
+import pl.marketapi.entity.Product;
 
 public interface ProductService {
 
+    Page<Product> getAll(Pageable page);
 
-    List<Product> getAll();
-
-    Optional<Product> getById(Long id);
+    Product getById(Long id);
 
     Product add(Product product);
 

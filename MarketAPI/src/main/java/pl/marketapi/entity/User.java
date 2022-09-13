@@ -12,11 +12,18 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User {
+
+    public User(RegisterRequest registerRequest) {
+        this.username = registerRequest.getUsername().toLowerCase();
+        this.email = registerRequest.getEmail().toLowerCase();
+        this.password = registerRequest.getPassword();
+        this.enabled = true;
+        this.role = "USER";
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

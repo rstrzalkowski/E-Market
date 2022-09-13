@@ -1,21 +1,20 @@
 package pl.marketapi.service;
 
-import pl.marketapi.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import pl.marketapi.entity.LoginRequest;
+import pl.marketapi.entity.RegisterRequest;
 import pl.marketapi.entity.User;
-
-import java.util.List;
 
 public interface UserService {
 
-    List<User> getAll();
+    void register(RegisterRequest registerRequest);
 
-    User getByUsername(String username) throws Exception;
+    String authenticate(LoginRequest loginRequest);
 
-    User updateUser(String username, User user) throws Exception;
+    Page<User> getAll(Pageable page);
 
-    boolean register(User user);
+    User getByUsername(String username);
 
-    String authenticate(User user) throws Exception;
-
-
+    User updateUser(String username, RegisterRequest registerRequest);
 }

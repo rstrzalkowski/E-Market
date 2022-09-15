@@ -1,0 +1,40 @@
+.container {
+  height: 900px;
+  width: 100%;
+  display: flex;
+  background-image: url("src/assets/background2.jpg");
+  background-size: cover;
+
+}
+
+.left-text {
+  margin: auto 160px 400px;
+  font-size: 70px;
+  width: 10%;
+  text-decoration: none;
+  color: darkseagreen;
+  letter-spacing: 2px;
+  font-family: 'Poppins', 'sans-serif';
+  font-weight: bold;
+}
+
+.form {
+  margin: auto;
+  padding: 30px;
+  border-radius: 20px;
+  border-style: none;
+  border-width: 1px;
+  background-color: #433a62;
+  box-shadow: 1px 1px 10px 5px #433a62;
+  transition-duration: 0.15s;
+  border-color: black;
+}
+
+.form:hover {
+  box-shadow: 1px 1px 10px 6px #433a62;
+}
+
+
+
+
+

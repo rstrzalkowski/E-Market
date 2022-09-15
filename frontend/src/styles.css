@@ -1,1 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.submit {
+  margin-top: 8px;
+  background-color: darkslateblue;
+  width: 100%;
+  color: whitesmoke;
+  border-style: none;
+  border-radius: 20px;
+  border-color: gray;
+  box-shadow: 3px 3px 10px 2px black;
+  padding: 15px;
+  font-size: 30px;
+  font-family: 'Poppins', 'sans-serif';
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition-duration: 0.15s;
+}
+
+.submit:hover {
+  box-shadow: 3px 3px 10px 4px black;
+}
+
+form {
+  margin: auto;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border-style: none;
+  border-width: 1px;
+  background-color: #433a62;
+  box-shadow: 1px 1px 10px 5px #433a62;
+  transition-duration: 0.15s;
+  border-color: black;
+}
+
+form:hover {
+  box-shadow: 1px 1px 10px 6px #433a62;
+}
+
+form input[type=text], input[type=password] {
+  display: flex;
+  font-size: 23px;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  box-shadow: 1px 1px 1px 1px black;
+  font-family: 'Poppins', 'sans-serif';
+  width: 100%;
+}
+
+.greet-text {
+  color: whitesmoke;
+  font-family: 'Poppins', 'sans-serif';
+  font-size: 18px;
+}
+

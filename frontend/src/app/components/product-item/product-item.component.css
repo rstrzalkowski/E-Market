@@ -1,0 +1,10 @@
+.container {
+  display: inline-block;
+  border-style: solid;
+  padding: 30px;
+  margin: 30px;
+}
+
+app-product-item {
+  display: flex;
+}

@@ -35,10 +35,10 @@ public class UserController {
         return userService.getAll(page).toList();
     }
 
-    @GetMapping("/users/{username}")
-    public User getByUsername(@PathVariable String username) {
+    @GetMapping("/users/{email}")
+    public User getByUsername(@PathVariable String email) {
         try {
-            return userService.getByUsername(username);
+            return userService.getByEmail(email);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

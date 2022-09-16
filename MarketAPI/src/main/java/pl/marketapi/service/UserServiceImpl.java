@@ -28,36 +28,35 @@ public class UserServiceImpl implements UserService {
     private JwtProvider jwtProvider;
 
     @Override
-    public void register(RegisterRequest registerRequest) {
-        Optional<User> sameUsernameUser = userRepository.findByUsername(registerRequest.getUsername().toLowerCase());
-        Optional<User> sameEmailUser = userRepository.findByEmail(registerRequest.getEmail().toLowerCase());
+    public void register(RegisterRequest request) {
+        Optional<User> sameEmailUser = userRepository.findByEmail(request.getEmail().toLowerCase());
 
-        if (sameUsernameUser.isPresent() || sameEmailUser.isPresent()) {
-            throw new UserAlreadyExistsException("User with this username or email already exists.");
+        if (sameEmailUser.isPresent()) {
+            throw new UserAlreadyExistsException("User with this email already exists.");
         }
 
         //Mapping RegisterRequest object to User, which will be saved in database
-        User user = new User(registerRequest);
+        User user = new User(request);
 
         //Password has to be encoded before saving to database
-        String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
     }
 
     @Override
-    public String authenticate(LoginRequest loginRequest) {
-        String username = loginRequest.getUsername().toLowerCase();
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+    public String authenticate(LoginRequest request) {
+        String email = request.getEmail().toLowerCase();
+        Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if(optionalUser.isEmpty()) {
-            throw new UserNotFoundException("User with this username doesn't exist.");
+            throw new UserNotFoundException("User with this email doesn't exist.");
         }
 
         User dbUser = optionalUser.get();
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), dbUser.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), dbUser.getPassword())) {
             throw new InvalidCredentialsException("Invalid password.");
         }
 
@@ -70,34 +69,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
+    public User getByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email.toLowerCase());
 
         if (user.isPresent()) {
             return user.get();
         }
 
-        throw new UserNotFoundException("User with this username doesn't exist");
+        throw new UserNotFoundException("User with this email doesn't exist");
     }
 
     @Override
-    public User updateUser(String username, RegisterRequest registerRequest) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+    public User updateUser(String email, RegisterRequest request) {
+        Optional<User> optionalUser = userRepository.findByEmail(email.toLowerCase());
+        Optional<User> newEmailUser = userRepository.findByEmail(request.getEmail().toLowerCase());
 
         if (optionalUser.isEmpty()) {
             throw new UserNotFoundException("User doesn't exist");
         }
-        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
-            throw new UserAlreadyExistsException("This username is taken");
-        }
-        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+
+        if (newEmailUser.isPresent()) {
             throw new UserAlreadyExistsException("Other account is registered on this email");
         }
 
         User existingUser = optionalUser.get();
-        existingUser.setUsername(registerRequest.getUsername() == null? existingUser.getUsername() : registerRequest.getUsername());
-        existingUser.setPassword(registerRequest.getPassword() == null? existingUser.getPassword() : passwordEncoder.encode(registerRequest.getPassword()));
-        existingUser.setEmail(registerRequest.getEmail() == null? existingUser.getEmail() : registerRequest.getEmail());
+        existingUser.setFirstName(request.getFirstName() == null? existingUser.getFirstName() : request.getFirstName());
+        existingUser.setLastName(request.getLastName() == null? existingUser.getLastName() : request.getLastName());
+        existingUser.setPassword(request.getPassword() == null? existingUser.getPassword() : passwordEncoder.encode(request.getPassword()));
+        existingUser.setEmail(request.getEmail() == null? existingUser.getEmail() : request.getEmail());
 
         return userRepository.save(existingUser);
     }

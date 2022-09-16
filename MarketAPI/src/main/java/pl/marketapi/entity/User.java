@@ -18,9 +18,10 @@ import java.sql.Timestamp;
 public class User {
 
     public User(RegisterRequest registerRequest) {
-        this.username = registerRequest.getUsername().toLowerCase();
         this.email = registerRequest.getEmail().toLowerCase();
         this.password = registerRequest.getPassword();
+        this.firstName = registerRequest.getFirstName();
+        this.lastName = registerRequest.getLastName();
         this.enabled = true;
         this.role = "USER";
     }
@@ -31,10 +32,13 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
-    private String email;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false)
     private String password;

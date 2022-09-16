@@ -49,6 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         List<String> excludedUrls = new ArrayList<>();
+        excludedUrls.add("/products");
         excludedUrls.add("/login");
         excludedUrls.add("/register");
 

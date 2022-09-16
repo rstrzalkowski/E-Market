@@ -14,7 +14,7 @@ public interface UserService {
 
     Page<User> getAll(Pageable page);
 
-    User getByUsername(String username);
+    User getByEmail(String email);
 
     User updateUser(String username, RegisterRequest registerRequest);
 }

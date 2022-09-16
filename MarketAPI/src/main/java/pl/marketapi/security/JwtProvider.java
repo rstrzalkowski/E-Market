@@ -12,7 +12,7 @@ public class JwtProvider {
 
     public String generateJWT(User user) {
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 60000))
                 .signWith(SignatureAlgorithm.HS512, System.getenv("SECRET"))

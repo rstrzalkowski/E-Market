@@ -12,7 +12,7 @@
   border-style: none;
   border-radius: 20px;
   border-color: gray;
-  box-shadow: 3px 3px 10px 2px black;
+  box-shadow: 1px 1px 4px 2px black;
   padding: 15px;
   font-size: 30px;
   font-family: 'Poppins', 'sans-serif';
@@ -27,7 +27,7 @@
 }
 
 .submit-valid:hover, .submit:hover {
-  box-shadow: 3px 3px 10px 4px black;
+  box-shadow: 1px 1px 9px 3px black;
 }
 
 .submit-valid:active, .submit:active {
@@ -64,7 +64,7 @@ form input[type=text], input[type=password] {
   border-style: solid;
   border-width: 1px;
   border-color: black;
-  box-shadow: 1px 1px 1px 1px black;
+  box-shadow: 0 0 3px 1px black;
   font-family: 'Poppins', 'sans-serif';
   width: 100%;
 }
@@ -84,6 +84,21 @@ input[type=text]:focus, input[type=password]:focus {
   font-size: 15px;
   font-family: 'Poppins', 'sans-serif';
 }
+
+.form {
+  margin-left: 550px;
+  margin-top: 200px;
+  width: 450px;
+  padding: 30px;
+  border-radius: 30px;
+  border-style: none;
+  border-width: 1px;
+  background-color: #433a62;
+  box-shadow: 0 0 5px 3px;
+  transition-duration: 0.15s;
+  border-color: black;
+}
+
 
 html, body {
   height: 100%;

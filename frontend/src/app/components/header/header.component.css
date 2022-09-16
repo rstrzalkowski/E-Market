@@ -15,6 +15,7 @@
   min-height: 8vh;
   background-color: #433a62;
   font-family: 'Poppins', 'sans-serif';
+  box-shadow: 1px 1px 5px 3px;
 }
 
 .nav-list {

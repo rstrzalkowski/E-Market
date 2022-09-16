@@ -14,6 +14,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProductListComponent} from './components/product-list/product-list.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ProductListComponent} from './components/product-list/product-list.compo
     LoginFormComponent,
     ProductItemComponent,
     RegisterFormComponent,
-    ProductListComponent
+    ProductListComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

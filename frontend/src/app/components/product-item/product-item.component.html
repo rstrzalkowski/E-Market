@@ -1,7 +1,13 @@
-<div class="container">
-  <h2>{{product.name}}</h2>
-  <h4>{{product.description}}</h4>
-  <p>Only for {{product.price}}$!</p>
-  <p>On stock: {{product.amount}}</p>
-  <button>Add to cart</button>
+<div class="item">
+  <div class="image-div">
+    <img src="https://www.ng-book.com/images/ng2/covers/any/ng-book-cover-ngb-ng-550.png">
+  </div>
+
+  <div class="details-div">
+    <h1 class="product-name">{{product.name}}</h1>
+    <h4 class="product-description">{{product.description}}</h4>
+    <p class="product-price">Only for {{product.price}}$!</p>
+    <p class="product-amount">On stock: {{product.amount}}</p>
+    <button class="add-to-cart-button">Add to cart</button>
+  </div>
 </div>

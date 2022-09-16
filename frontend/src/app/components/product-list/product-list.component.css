@@ -1,0 +1,17 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  background-color: rgba(72, 42, 109, 0.64);
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 8vh;
+  column-gap: 11px;
+  row-gap: 11px;
+  height: 840px;
+  padding: 10px;
+}
+
+

@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+  <p class="greet-text">New to E-Market? Create an account!</p>
+  <input formControlName="firstName" placeholder="First name" required type="text">
+  <span *ngIf="firstName && firstName.touched && firstName.invalid" class="validation-message">This field may not be empty.</span>
+
+  <input formControlName="lastName" placeholder="Last name" required type="text">
+  <span *ngIf="lastName && lastName.touched && lastName.invalid"
+        class="validation-message">This field may not be empty.</span>
+
+  <input formControlName="email" placeholder="Your e-mail" required type="text">
+  <span *ngIf="email && email.touched && email.invalid" class="validation-message">Enter a valid email.</span>
+
+  <input formControlName="password" placeholder="Password" required type="password">
+  <span *ngIf="password && password.touched && password.invalid" class="validation-message">Minimum password length is 8.</span>
+
+  <p *ngIf="registerForm.valid" class="privacy-info">By clicking Agree & Join, you agree to the <b>Privacy Policy.</b>
+  </p>
+
+  <p *ngIf="registerForm.invalid" class="info-invalid">Fill the form in order to sign up.
+  </p>
+  <input *ngIf="registerForm.invalid" class="submit-invalid" type="submit" value="Agree & Join">
+  <input *ngIf="registerForm.valid" class="submit-valid" type="submit" value="Agree & Join">
+</form>

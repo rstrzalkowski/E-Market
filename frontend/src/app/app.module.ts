@@ -6,10 +6,14 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {HomeComponent} from './components/home/home.component';
 import {LoginFormComponent} from './components/login-form/login-form.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ProductItemComponent} from './components/product-item/product-item.component';
-import {RegisterFormComponent} from './register-form/register-form.component';
+import {RegisterFormComponent} from './components/register-form/register-form.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ProductListComponent} from './components/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +22,17 @@ import {RegisterFormComponent} from './register-form/register-form.component';
     HomeComponent,
     LoginFormComponent,
     ProductItemComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

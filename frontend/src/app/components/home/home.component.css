@@ -16,6 +16,11 @@
   letter-spacing: 2px;
   font-family: 'Poppins', 'sans-serif';
   font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.left-text:hover {
+  opacity: 0.6;
 }
 
 .form {

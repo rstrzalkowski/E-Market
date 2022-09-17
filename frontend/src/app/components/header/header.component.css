@@ -1,31 +1,43 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 
-.logo h4 {
+.header {
+  display: flex;
+  font-family: 'Poppins', 'sans-serif';
+  min-height: 8vh;
+  background-color: #433a62;
+  box-shadow: 1px 1px 5px 3px;
+}
+
+.left-section {
+  display: flex;
+  min-width: 180px;
+  align-items: center;
+}
+
+.left-section h1 {
+  margin-left: 30px;
   color: ghostwhite;
   letter-spacing: 6px;
   font-size: 25px;
   cursor: pointer;
-  padding-left: 80px;
 }
 
-.nav {
+.middle-section {
   display: flex;
+  flex: 1;
   align-items: center;
-  min-height: 8vh;
-  background-color: #433a62;
-  font-family: 'Poppins', 'sans-serif';
-  box-shadow: 1px 1px 5px 3px;
+  justify-content: space-evenly;
 }
 
-.nav-list {
+.right-section {
   display: flex;
-  justify-content: space-between;
-  width: 70%;
-  margin-left: auto;
+  min-width: 300px;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.nav-list a {
+.header a {
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 18px;
@@ -34,24 +46,14 @@
   transition-duration: 0.3s;
 }
 
-.nav-list a:hover {
+.header a:hover {
   color: darkseagreen;
 }
 
-.nav-list li {
-  list-style: none;
-}
 
 
-.nav-list-center li {
-  display: inline-block;
-  padding: 0 80px;
-}
 
 
-.nav-list-right li {
-  display: inline-block;
-  padding: 0 30px;
-}
+
 
 

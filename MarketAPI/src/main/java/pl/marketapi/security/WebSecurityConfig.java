@@ -28,9 +28,13 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
                         .mvcMatchers("/test").authenticated()
+                        .mvcMatchers("/users/lock/**").hasRole("USER")
                         .anyRequest().permitAll()
+
 
                 ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+
 }

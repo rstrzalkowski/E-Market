@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.marketapi.entity.JWT;
 import pl.marketapi.entity.LoginRequest;
 import pl.marketapi.entity.RegisterRequest;
 import pl.marketapi.entity.User;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody LoginRequest loginRequest) {
+    public JWT login(@Valid @RequestBody LoginRequest loginRequest) {
         return userService.authenticate(loginRequest);
     }
 
@@ -44,8 +45,19 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{username}")
-    public User updateUser(@PathVariable String username, @RequestBody RegisterRequest registerRequest) {
-        return userService.updateUser(username, registerRequest);
+    @PutMapping("/users/{email}")
+    public User updateUser(@PathVariable String email, @RequestBody RegisterRequest registerRequest) {
+        return userService.updateUser(email, registerRequest);
     }
+
+    @PostMapping("/users/lock/{email}")
+    public User lockUser(@PathVariable String email) {
+        return userService.lockUser(email);
+    }
+
+    @PostMapping("/users/unlock/{email}")
+    public User unlockUser(@PathVariable String email) {
+        return userService.unlockUser(email);
+    }
+
 }

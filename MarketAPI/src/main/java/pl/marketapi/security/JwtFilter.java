@@ -1,5 +1,6 @@
 package pl.marketapi.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.marketapi.entity.ErrorObject;
+import pl.marketapi.entity.User;
+import pl.marketapi.repository.UserRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,31 +21,49 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+    private final ObjectMapper objectMapper;
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
+    UserRepository userRepository;
+
+    public JwtFilter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String jwt = getToken(request);
 
-        if (jwt == null || !jwtProvider.validateToken(jwt)) {
+        try {
+            if (jwt != null && jwtProvider.validateToken(jwt)) {
+                Claims claims = jwtProvider.parseJWT(jwt).getBody();
 
-            response.sendError(HttpStatus.UNAUTHORIZED.value());
+                Optional<User> optionalUser = userRepository.findByEmail(claims.getSubject());
 
-        } else {
-            Claims claims = jwtProvider.parseJWT(jwt).getBody();
-            //System.out.println(claims);
+                if (optionalUser.isPresent() && optionalUser.get().isEnabled()) {
+                    User user = optionalUser.get();
+                    String role = "ROLE_" + user.getRole();
 
-            //TODO if jwt ok -> setAuthentication, change hardcode role
-            SecurityContextHolder.getContext()
-                    .setAuthentication(new UsernamePasswordAuthenticationToken(claims.getSubject(), null, Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(new UsernamePasswordAuthenticationToken(
+                                    claims.getSubject(),
+                                    null,
+                                    Collections.singleton(new SimpleGrantedAuthority(role))));
 
-            filterChain.doFilter(request, response);
+                    filterChain.doFilter(request, response);
+
+                }
+            }
+        } catch (Throwable ex) {
+            handleFilterException(response, "Authorization failed");
         }
 
     }
@@ -64,5 +86,15 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         return null;
+    }
+
+    private void handleFilterException(HttpServletResponse response, String message) throws IOException {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        errorObject.setMessage(message);
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write(objectMapper.writeValueAsString(errorObject));
     }
 }

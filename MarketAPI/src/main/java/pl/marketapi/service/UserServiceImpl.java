@@ -5,10 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import pl.marketapi.entity.JWT;
 import pl.marketapi.entity.LoginRequest;
 import pl.marketapi.entity.RegisterRequest;
 import pl.marketapi.entity.User;
+import pl.marketapi.exception.AuthenticationException;
 import pl.marketapi.exception.InvalidCredentialsException;
 import pl.marketapi.exception.UserAlreadyExistsException;
 import pl.marketapi.exception.UserNotFoundException;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private JwtProvider jwtProvider;
 
     @Override
-    public void register(RegisterRequest request) {
+    public User register(RegisterRequest request) {
         Optional<User> sameEmailUser = userRepository.findByEmail(request.getEmail().toLowerCase());
 
         if (sameEmailUser.isPresent()) {
@@ -42,25 +43,30 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
         user.setPassword(encodedPassword);
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public String authenticate(LoginRequest request) {
+    public JWT authenticate(LoginRequest request) {
         String email = request.getEmail().toLowerCase();
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
-        if(optionalUser.isEmpty()) {
+        if (optionalUser.isEmpty()) {
             throw new UserNotFoundException("User with this email doesn't exist.");
         }
 
-        User dbUser = optionalUser.get();
+        User user = optionalUser.get();
 
-        if (!passwordEncoder.matches(request.getPassword(), dbUser.getPassword())) {
+        if (!user.isEnabled()) {
+            throw new AuthenticationException("User is blocked.");
+        }
+
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid password.");
         }
 
-        return jwtProvider.generateJWT(dbUser);
+        return new JWT(jwtProvider.generateJWT(user));
     }
 
     @Override
@@ -82,22 +88,49 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(String email, RegisterRequest request) {
         Optional<User> optionalUser = userRepository.findByEmail(email.toLowerCase());
-        Optional<User> newEmailUser = userRepository.findByEmail(request.getEmail().toLowerCase());
 
         if (optionalUser.isEmpty()) {
             throw new UserNotFoundException("User doesn't exist");
         }
 
-        if (newEmailUser.isPresent()) {
-            throw new UserAlreadyExistsException("Other account is registered on this email");
+        if (request.getEmail() != null) {
+            Optional<User> newEmailUser = userRepository.findByEmail(request.getEmail().toLowerCase());
+
+            if (newEmailUser.isPresent()) {
+                throw new UserAlreadyExistsException("Other account is registered on this email");
+            }
         }
 
         User existingUser = optionalUser.get();
-        existingUser.setFirstName(request.getFirstName() == null? existingUser.getFirstName() : request.getFirstName());
-        existingUser.setLastName(request.getLastName() == null? existingUser.getLastName() : request.getLastName());
-        existingUser.setPassword(request.getPassword() == null? existingUser.getPassword() : passwordEncoder.encode(request.getPassword()));
-        existingUser.setEmail(request.getEmail() == null? existingUser.getEmail() : request.getEmail());
+        existingUser.setFirstName(request.getFirstName() == null ? existingUser.getFirstName() : request.getFirstName());
+        existingUser.setLastName(request.getLastName() == null ? existingUser.getLastName() : request.getLastName());
+        existingUser.setPassword(request.getPassword() == null ? existingUser.getPassword() : passwordEncoder.encode(request.getPassword()));
+        existingUser.setEmail(request.getEmail() == null ? existingUser.getEmail() : request.getEmail());
 
         return userRepository.save(existingUser);
+    }
+
+    @Override
+    public User lockUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email.toLowerCase());
+
+        if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException("User with this email doesn't exist");
+        }
+        User user = optionalUser.get();
+        user.setEnabled(false);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User unlockUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email.toLowerCase());
+
+        if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException("User with this email doesn't exist");
+        }
+        User user = optionalUser.get();
+        user.setEnabled(true);
+        return userRepository.save(user);
     }
 }

@@ -1,6 +1,6 @@
 package pl.marketapi.entity;
 
-import lombok.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -29,6 +29,9 @@ public class Product {
     @Column
     @NotNull
     private int amount;
+
+    @Column
+    private String imageUrl;
 
     @Column
     @NotNull

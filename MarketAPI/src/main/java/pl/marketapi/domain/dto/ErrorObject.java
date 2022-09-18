@@ -1,4 +1,4 @@
-package pl.marketapi.entity;
+package pl.marketapi.domain.dto;
 
 import lombok.Data;
 

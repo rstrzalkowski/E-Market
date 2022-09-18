@@ -2,10 +2,10 @@ package pl.marketapi.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import pl.marketapi.entity.JWT;
-import pl.marketapi.entity.LoginRequest;
-import pl.marketapi.entity.RegisterRequest;
-import pl.marketapi.entity.User;
+import pl.marketapi.domain.dto.JWT;
+import pl.marketapi.domain.dto.LoginRequest;
+import pl.marketapi.domain.dto.RegisterRequest;
+import pl.marketapi.domain.entity.User;
 
 public interface UserService {
 

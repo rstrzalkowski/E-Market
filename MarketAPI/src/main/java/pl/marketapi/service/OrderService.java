@@ -1,6 +1,6 @@
 package pl.marketapi.service;
 
-import pl.marketapi.entity.Order;
+import pl.marketapi.domain.entity.Order;
 
 import java.util.List;
 

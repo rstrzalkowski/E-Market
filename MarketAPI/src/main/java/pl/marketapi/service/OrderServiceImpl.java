@@ -2,7 +2,7 @@ package pl.marketapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.marketapi.entity.Order;
+import pl.marketapi.domain.entity.Order;
 import pl.marketapi.repository.OrderRepository;
 
 import java.util.List;

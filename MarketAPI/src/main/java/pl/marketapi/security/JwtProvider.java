@@ -2,7 +2,7 @@ package pl.marketapi.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
-import pl.marketapi.entity.User;
+import pl.marketapi.domain.entity.User;
 
 import java.util.Date;
 

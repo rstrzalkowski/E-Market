@@ -9,8 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pl.marketapi.entity.ErrorObject;
-import pl.marketapi.entity.User;
+import pl.marketapi.domain.dto.ErrorObject;
+import pl.marketapi.domain.entity.User;
 import pl.marketapi.repository.UserRepository;
 
 import javax.servlet.FilterChain;

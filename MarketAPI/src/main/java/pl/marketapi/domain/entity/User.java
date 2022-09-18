@@ -1,10 +1,12 @@
-package pl.marketapi.entity;
+package pl.marketapi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import pl.marketapi.domain.dto.RegisterRequest;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     @Column
     private boolean enabled;

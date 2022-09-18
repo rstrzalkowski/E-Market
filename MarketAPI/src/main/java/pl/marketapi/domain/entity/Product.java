@@ -1,4 +1,4 @@
-package pl.marketapi.entity;
+package pl.marketapi.domain.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

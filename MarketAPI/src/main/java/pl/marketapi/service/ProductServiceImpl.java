@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
-import pl.marketapi.entity.Product;
+import pl.marketapi.domain.entity.Product;
 import pl.marketapi.exception.ProductNotFoundException;
 import pl.marketapi.repository.ProductRepository;
 

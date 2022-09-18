@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.marketapi.entity.Product;
+import pl.marketapi.domain.entity.Product;
 import pl.marketapi.service.ProductService;
 
 import java.util.List;
@@ -16,11 +16,13 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products")
     public List<Product> getAll(Pageable page) {
         return productService.getAll(page).toList();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products/{id}")
     public Product getById(@PathVariable Long id) {
         return productService.getById(id);

@@ -1,4 +1,4 @@
-package pl.marketapi.entity;
+package pl.marketapi.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

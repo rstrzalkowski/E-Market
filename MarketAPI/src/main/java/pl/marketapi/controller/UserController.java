@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.marketapi.entity.JWT;
-import pl.marketapi.entity.LoginRequest;
-import pl.marketapi.entity.RegisterRequest;
-import pl.marketapi.entity.User;
+import pl.marketapi.domain.dto.JWT;
+import pl.marketapi.domain.dto.LoginRequest;
+import pl.marketapi.domain.dto.RegisterRequest;
+import pl.marketapi.domain.entity.User;
 import pl.marketapi.service.UserService;
 
 import javax.validation.Valid;
@@ -22,20 +22,23 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    public void register(@Valid @RequestBody RegisterRequest registerRequest) {
-        userService.register(registerRequest);
+    public User register(@Valid @RequestBody RegisterRequest registerRequest) {
+        return userService.register(registerRequest);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public JWT login(@Valid @RequestBody LoginRequest loginRequest) {
         return userService.authenticate(loginRequest);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users")
     public List<User> getAll(Pageable page) {
         return userService.getAll(page).toList();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{email}")
     public User getByUsername(@PathVariable String email) {
         try {
@@ -45,16 +48,19 @@ public class UserController {
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/users/{email}")
     public User updateUser(@PathVariable String email, @RequestBody RegisterRequest registerRequest) {
         return userService.updateUser(email, registerRequest);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/users/lock/{email}")
     public User lockUser(@PathVariable String email) {
         return userService.lockUser(email);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/users/unlock/{email}")
     public User unlockUser(@PathVariable String email) {
         return userService.unlockUser(email);

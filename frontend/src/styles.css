@@ -40,7 +40,6 @@
 
 
 form {
-  margin: auto;
   padding: 10px 20px;
   border-radius: 20px;
   border-style: none;
@@ -71,6 +70,7 @@ form input[type=text], input[type=password] {
 
 input[type=text]:focus, input[type=password]:focus {
   opacity: 0.8;
+  outline: none;
 }
 
 .greet-text {
@@ -86,9 +86,9 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 .form {
-  margin-left: 550px;
-  margin-top: 200px;
-  width: 450px;
+  margin-bottom: 30px;
+  margin-right: 300px;
+  flex: 1;
   padding: 30px;
   border-radius: 30px;
   border-style: none;
@@ -100,10 +100,12 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 
-html, body {
-  height: 100%;
+body {
+  padding-top: 8vh;
+  min-height: 100vh;
 }
 
-body {
-  margin: 0;
+body::-webkit-scrollbar {
+  display: none;
 }
+

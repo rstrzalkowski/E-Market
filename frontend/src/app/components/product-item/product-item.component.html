@@ -1,13 +1,21 @@
 <div class="item">
   <div class="image-div">
-    <img src="https://www.ng-book.com/images/ng2/covers/any/ng-book-cover-ngb-ng-550.png">
+
+    <img *ngIf="product.imageUrl" [src]="product.imageUrl">
+    <img *ngIf="!product.imageUrl"
+         src="https://media.istockphoto.com/vectors/default-image-icon-vector-missing-picture-page-for-website-design-or-vector-id1357365823?k=20&m=1357365823&s=612x612&w=0&h=ZH0MQpeUoSHM3G2AWzc8KkGYRg4uP_kuu0Za8GFxdFc=">
   </div>
 
   <div class="details-div">
-    <h1 class="product-name">{{product.name}}</h1>
-    <h4 class="product-description">{{product.description}}</h4>
-    <p class="product-price">Only for {{product.price}}$!</p>
-    <p class="product-amount">On stock: {{product.amount}}</p>
-    <button class="add-to-cart-button">Add to cart</button>
+    <div class="product-info">
+      <h1 class="product-name">{{product.name}}</h1>
+      <p class="product-description">{{product.description}}</p>
+      <h3 class="product-price">Only for {{product.price}}$!</h3>
+      <p class="product-amount">On stock: {{product.amount}}</p>
+    </div>
+
+    <div class="button-div">
+      <button class="add-to-cart-button">Add to cart</button>
+    </div>
   </div>
 </div>

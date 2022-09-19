@@ -1,16 +1,21 @@
 .container {
-  height: 900px;
+  height: 90vh;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   background-image: url("src/assets/background2.jpg");
   background-size: cover;
+  border-style: solid;
+  align-items: center;
 
 }
 
 .left-text {
-  margin: auto 160px 400px;
+
+  margin-bottom: 200px;
+  margin-left: 150px;
   font-size: 70px;
-  width: 10%;
+  width: 20%;
   text-decoration: none;
   color: darkseagreen;
   letter-spacing: 2px;
@@ -22,6 +27,7 @@
 .left-text:hover {
   opacity: 0.6;
 }
+
 
 
 

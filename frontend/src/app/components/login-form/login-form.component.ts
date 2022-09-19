@@ -13,6 +13,8 @@ export class LoginFormComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   })
 
+  token: string = "";
+
   constructor(private loginService: LoginService) {
   }
 
@@ -32,7 +34,16 @@ export class LoginFormComponent implements OnInit {
 
     if (this.loginForm.valid) {
       console.log("Logging in");
-      this.loginService.login(this.loginForm.getRawValue().email, this.loginForm.getRawValue().password)
+      let email = this.loginForm.getRawValue().email;
+      let password = this.loginForm.getRawValue().password
+
+      if (email != null && password != null) {
+        this.loginService.login(email.toString(), password.toString()).subscribe((res) => {
+
+          this.token = res.token;
+          console.log(res);
+        })
+      }
     }
 
   }

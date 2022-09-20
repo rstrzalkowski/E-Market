@@ -1,7 +1,7 @@
 .page {
   display: flex;
   background-color: rgba(72, 42, 109, 0.64);
-  min-height: 100vh;
+  min-height: 90vh;
 }
 
 .product-container {
@@ -17,8 +17,24 @@
   box-shadow: 10px 0 6px 2px;
 }
 
+.no-products-available {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 300px;
+}
+
+.no-products-available h1 {
+  font-size: 50px;
+  font-family: "Comic Sans MS", sans-serif;
+  color: #e5e5fa;
+  padding: 50px;
+  border-radius: 10px;
+}
+
 app-product-item {
-  flex-basis: 200px;
+  flex-basis: 300px;
   flex-grow: 1;
 }
 

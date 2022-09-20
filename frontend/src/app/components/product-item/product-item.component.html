@@ -8,14 +8,14 @@
 
   <div class="details-div">
     <div class="product-info">
-      <h1 class="product-name">{{product.name}}</h1>
+      <h2 class="product-name">{{product.name}}</h2>
       <p class="product-description">{{product.description}}</p>
       <h3 class="product-price">Only for {{product.price}}$!</h3>
       <p class="product-amount">On stock: {{product.amount}}</p>
     </div>
 
     <div class="button-div">
-      <button class="add-to-cart-button">Add to cart</button>
+      <button (click)="addToCart()" class="add-to-cart-button">Add to cart</button>
     </div>
   </div>
 </div>

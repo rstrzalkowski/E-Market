@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProductListComponent} from './components/product-list/product-list.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     ProductItemComponent,
     RegisterFormComponent,
     ProductListComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

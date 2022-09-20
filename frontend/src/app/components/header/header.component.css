@@ -51,6 +51,15 @@
   color: darkseagreen;
 }
 
+span {
+  padding: 10px 20px;
+  border-radius: 200px;
+  box-shadow: 0 0 2px 1px black;
+  background-color: #c3c0df;
+  color: black;
+}
+
+
 
 
 

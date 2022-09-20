@@ -6,7 +6,7 @@
   <div class="middle-section">
     <p><a routerLink="">Home</a></p>
     <p><a routerLink="">Categories</a></p>
-    <p><a routerLink="">Cart</a></p>
+    <p><a routerLink="cart">Cart <span *ngIf="numberOfCartItems > 0">{{numberOfCartItems}}</span></a></p>
   </div>
 
   <div class="right-section">

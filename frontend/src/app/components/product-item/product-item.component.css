@@ -1,10 +1,17 @@
 .item {
-  min-width: 550px;
+  min-width: 450px;
   background-color: snow;
   box-shadow: 0 0 4px 3px;
   border-radius: 3px;
   height: 35vh;
   display: flex;
+}
+
+.image-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
 }
 
 img {
@@ -29,12 +36,16 @@ img {
 }
 
 .product-info {
-  height: 75%;
+  height: 70%;
 }
 
 .button-div {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.quantity-in-cart-text {
+  font-family: 'Poppins', 'sans-serif';
 }
 
 .add-to-cart-button {
@@ -56,6 +67,27 @@ img {
 
 .add-to-cart-button:active {
   opacity: 0.9;
+}
+
+.out-of-stock {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-style: solid;
+}
+
+.out-of-stock:hover {
+  background-color: whitesmoke;
+  color: darkslateblue;
+  cursor: not-allowed;
+}
+
+.out-of-stock:active {
+  background-color: whitesmoke;
+  color: darkslateblue;
+  cursor: not-allowed;
+  opacity: 0.5;
+  outline: none;
+  text-decoration: none;
 }
 
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginService} from "../../services/login.service";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -13,9 +14,8 @@ export class LoginFormComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   })
 
-  token: string = "";
 
-  constructor(private loginService: LoginService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   get email() {
@@ -35,17 +35,27 @@ export class LoginFormComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log("Logging in");
       let email = this.loginForm.getRawValue().email;
-      let password = this.loginForm.getRawValue().password
+      let password = this.loginForm.getRawValue().password;
 
       if (email != null && password != null) {
-        this.loginService.login(email.toString(), password.toString()).subscribe((res) => {
 
-          this.token = res.token;
-          console.log(res);
+        this.authService.login(email.toString(), password.toString()).subscribe((result) => {
+
+          console.log(result.status)
+          if (!result.ok) {
+            alert("Invalid credentials");
+          } else {
+            this.authService.setAuthentication(result.body?.token);
+            console.log(result.body?.token);
+          }
+
+          if (this.authService.authenticated) {
+            this.router.navigate(['/cart']);
+          }
         })
       }
     }
-
   }
+
 
 }

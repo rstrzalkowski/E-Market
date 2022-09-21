@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginService} from "../../services/login.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-register-form',
@@ -16,7 +16,7 @@ export class RegisterFormComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: AuthService) {
   }
 
   get firstName() {

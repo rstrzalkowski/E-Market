@@ -6,12 +6,15 @@
   <div class="middle-section">
     <p><a routerLink="">Home</a></p>
     <p><a routerLink="/products">Products</a></p>
-    <p><a routerLink="/cart">Cart <span *ngIf="numberOfCartItems > 0">{{numberOfCartItems}}</span></a></p>
+    <p><a routerLink="/cart">Cart <span *ngIf="numberOfCartItems > 0"
+                                        class="item-count">{{numberOfCartItems}}</span></a></p>
   </div>
 
   <div class="right-section">
     <p *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></p>
     <p *ngIf="!isAuthenticated"><a routerLink="">Sign up</a></p>
+
+    <p *ngIf="isAuthenticated"><a routerLink="/settings">Settings</a></p>
     <p *ngIf="isAuthenticated"><a (click)="logOut()" routerLink="/login">Log out</a></p>
   </div>
 </div>

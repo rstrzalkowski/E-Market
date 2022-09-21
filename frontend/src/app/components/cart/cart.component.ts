@@ -40,8 +40,10 @@ export class CartComponent implements OnInit {
 
   checkout() {
     if (this.isAuthenticated) {
+      alert("Payment")
       console.log("Checking out");
     } else {
+      alert("You need to log in first.")
       this.router.navigate(["/login"]);
     }
   }

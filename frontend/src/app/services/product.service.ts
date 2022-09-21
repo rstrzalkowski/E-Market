@@ -13,7 +13,7 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=createdAt,desc&size=6`)
+    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=createdAt,desc&size=8`)
   }
 
 }

@@ -3,6 +3,9 @@ import {Product} from "../../model/Product";
 import {CartService} from "../../services/cart.service";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {AlertifyService} from "../../services/alertify.service";
+
+declare let alertify: any;
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +19,10 @@ export class CartComponent implements OnInit {
   isAuthenticated: boolean = false;
 
 
-  constructor(private authService: AuthService, private cartService: CartService, private router: Router) {
+  constructor(private authService: AuthService,
+              private cartService: CartService,
+              private router: Router,
+              private alertifyService: AlertifyService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +37,12 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart() {
-    this.cartService.emptyCart();
+    alertify.confirm("Are you sure you want to empty your cart?", () => this.cartService.emptyCart()).set({title: "Empty cart?"}).set({
+      labels: {
+        ok: 'Yes',
+        cancel: 'Cancel'
+      }
+    });
   }
 
   deleteFromCart(product: Product) {
@@ -43,7 +54,7 @@ export class CartComponent implements OnInit {
       alert("Payment")
       console.log("Checking out");
     } else {
-      alert("You need to log in first.")
+      this.alertifyService.info("You need to log in first.")
       this.router.navigate(["/login"]);
     }
   }

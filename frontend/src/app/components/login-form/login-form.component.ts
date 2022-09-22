@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {AlertifyService} from "../../services/alertify.service";
 
 @Component({
   selector: 'app-login-form',
@@ -15,7 +16,9 @@ export class LoginFormComponent implements OnInit {
   })
 
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private alertifyService: AlertifyService) {
   }
 
   get email() {
@@ -30,6 +33,10 @@ export class LoginFormComponent implements OnInit {
     this.loginForm.valueChanges.subscribe(console.log)
   }
 
+  clearPassword() {
+    this.loginForm.get('password')?.setValue("");
+  }
+
   onSubmit() {
 
     if (this.loginForm.valid) {
@@ -41,17 +48,16 @@ export class LoginFormComponent implements OnInit {
 
         this.authService.login(email.toString(), password.toString()).subscribe((result) => {
 
-          console.log(result.status)
-          if (!result.ok) {
-            alert("Invalid credentials");
-          } else {
-            this.authService.setAuthentication(result.body?.token);
-            console.log(result.body?.token);
-          }
+          this.authService.setAuthentication(result.body?.token);
 
           if (this.authService.authenticated) {
             this.router.navigate(['/cart']);
+            this.alertifyService.loginSuccess();
           }
+        }, (error) => {
+          this.alertifyService.loginError();
+          console.log(error.statusMessage)
+          this.clearPassword();
         })
       }
     }

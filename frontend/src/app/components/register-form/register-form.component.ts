@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {AlertifyService} from "../../services/alertify.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register-form',
@@ -16,7 +18,9 @@ export class RegisterFormComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
-  constructor(private loginService: AuthService) {
+  constructor(private loginService: AuthService,
+              private alertifyService: AlertifyService,
+              private router: Router) {
   }
 
   get firstName() {
@@ -50,7 +54,11 @@ export class RegisterFormComponent implements OnInit {
 
       if (firstName != null && lastname != null && email != null && password != null) {
         this.loginService.register(firstName.toString(), lastname.toString(), email.toString(), password.toString()).subscribe((res) => {
-          console.log(res.status)
+          this.alertifyService.registerSuccess();
+          this.router.navigate(['/login']);
+        }, (error) => {
+          this.alertifyService.registerError();
+
         })
       }
     }

@@ -2,9 +2,8 @@ package pl.marketapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.stereotype.Service;
 import pl.marketapi.domain.entity.Product;
 import pl.marketapi.exception.ProductNotFoundException;
 import pl.marketapi.repository.ProductRepository;
@@ -25,6 +24,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getAll(Pageable page) {
         return productRepository.findAll(page);
+    }
+
+    @Override
+    public Page<Product> getByKeyword(String keyword, Pageable page) {
+        return productRepository.findByNameContainingIgnoreCase(keyword, page);
     }
 
     @Override

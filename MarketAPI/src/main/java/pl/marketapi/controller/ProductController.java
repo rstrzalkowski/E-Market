@@ -22,6 +22,11 @@ public class ProductController {
         return productService.getAll(page).toList();
     }
 
+    @PostMapping("/products/search")
+    public List<Product> searchByKeyword(@RequestParam String keyword, Pageable page) {
+        return productService.getByKeyword(keyword, page).get().toList();
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products/{id}")
     public Product getById(@PathVariable Long id) {

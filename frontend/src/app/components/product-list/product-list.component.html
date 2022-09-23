@@ -1,6 +1,10 @@
 <div class="page">
-  <app-toolbar (onSearchEvent)="searchByKeyword($event)"
-               (onSortChangeEvent)="changeSortingMethod($event)"></app-toolbar>
+  <app-toolbar (onPageNext)="onPageNext($event)"
+               (onPagePrevious)="onPagePrevious($event)"
+               (onSearchEvent)="searchByKeyword($event)"
+               (onSortChangeEvent)="changeSortingMethod($event)"
+               [actualPageObservable]="actualPage$.asObservable()"
+               [totalPagesObservable]="totalPages$.asObservable()"></app-toolbar>
   <div *ngIf="products.length > 0" class="product-container">
     <app-product-item *ngFor="let product of products" [product]="product"></app-product-item>
   </div>

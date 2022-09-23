@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../../model/Product";
 import {ProductService} from "../../services/product.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +13,12 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   sortMethod: string = "createdAt,desc";
 
+  totalPages: number = 0;
+  totalPages$ = new BehaviorSubject<number>(this.totalPages)
+
+  actualPage: number = 0;
+  actualPage$ = new BehaviorSubject<number>(this.actualPage)
+
 
   constructor(private productService: ProductService) {
   }
@@ -21,15 +28,36 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getProducts(this.sortMethod).subscribe((res) => this.products = res);
+    this.productService.getProducts(this.sortMethod, this.actualPage).subscribe((res) => {
+      this.products = res;
+      this.totalPages$.next(2); //TODO
+    });
   }
 
   searchByKeyword(keyword: string | null) {
     if (keyword === null || keyword === "") {
-      this.productService.getProducts(this.sortMethod).subscribe((res) => this.products = res);
+      this.productService.getProducts(this.sortMethod, this.actualPage).subscribe((res) => {
+        this.products = res
+        this.totalPages$.next(2);//TODO get total pages from http response
+      });
     } else {
-      this.productService.searchByKeyword(keyword, this.sortMethod).subscribe((res) => this.products = res)
+      this.productService.searchByKeyword(keyword, this.sortMethod, this.actualPage).subscribe((res) => {
+        this.products = res
+        this.totalPages$.next(2);//TODO
+      })
     }
+  }
+
+  onPagePrevious(keyword: string | null) {
+    this.actualPage -= 1;
+    this.searchByKeyword(keyword);
+    this.actualPage$.next(this.actualPage)
+  }
+
+  onPageNext(keyword: string | null) {
+    this.actualPage += 1;
+    this.searchByKeyword(keyword);
+    this.actualPage$.next(this.actualPage)
   }
 
   changeSortingMethod(method: string | null) {

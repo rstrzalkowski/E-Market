@@ -75,4 +75,43 @@ fieldset {
   margin-top: 20px;
 }
 
+.page-navigation {
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.previous, .next, .previous-disabled, .next-disabled {
+  padding: 10px;
+  background-color: #c3c0df;
+  flex: 1;
+  text-align: center;
+  box-shadow: 0 0 2px 1px;
+  z-index: 2;
+  border-radius: 3px;
+}
+
+.actual {
+  padding: 10px;
+  width: 50px;
+  text-align: center;
+  background-color: #d4d2d7;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.previous:hover, .next:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.previous-disabled, .next-disabled {
+  opacity: 0.5;
+}
+
 

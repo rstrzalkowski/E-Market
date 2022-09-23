@@ -28,5 +28,14 @@
       </ul>
     </fieldset>
   </div>
+  <div class="page-navigation">
+    <div (click)="previousPage()" *ngIf="actualPage > 0" class="previous">Previous</div>
+    <div *ngIf="actualPage === 0" class="previous-disabled">Previous</div>
+
+    <div class="actual">{{actualPage + 1}}</div>
+
+    <div (click)="nextPage()" *ngIf="actualPage < totalPages - 1" class="next">Next</div>
+    <div *ngIf="actualPage === totalPages - 1" class="next-disabled">Next</div>
+  </div>
 
 </div>

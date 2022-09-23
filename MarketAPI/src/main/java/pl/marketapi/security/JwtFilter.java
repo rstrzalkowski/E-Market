@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.marketapi.domain.dto.ErrorObject;
@@ -18,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +27,22 @@ import java.util.Optional;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper;
+    private final List<AntPathRequestMatcher> excludedMatchers;
+
     @Autowired
     JwtProvider jwtProvider;
-
     @Autowired
     UserRepository userRepository;
 
-    public JwtFilter(ObjectMapper objectMapper) {
+
+    public JwtFilter(ObjectMapper objectMapper, List<AntPathRequestMatcher> excludedMatchers) {
         this.objectMapper = objectMapper;
+        this.excludedMatchers = excludedMatchers;
+
+        this.excludedMatchers.add(new AntPathRequestMatcher("/login"));
+        this.excludedMatchers.add(new AntPathRequestMatcher("/register"));
+        this.excludedMatchers.add(new AntPathRequestMatcher("/products"));
+        this.excludedMatchers.add(new AntPathRequestMatcher("/products/search/*"));
     }
 
     @Override
@@ -70,12 +78,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        List<String> excludedUrls = new ArrayList<>();
-        excludedUrls.add("/products");
-        excludedUrls.add("/login");
-        excludedUrls.add("/register");
 
-        return excludedUrls.contains(request.getServletPath());
+
+        return excludedMatchers.stream().anyMatch(antPathRequestMatcher -> antPathRequestMatcher.matches(request));
+
     }
 
     private String getToken(HttpServletRequest request) {

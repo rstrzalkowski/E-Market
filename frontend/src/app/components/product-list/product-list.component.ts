@@ -9,7 +9,9 @@ import {ProductService} from "../../services/product.service";
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[] = []
+  products: Product[] = [];
+  sortMethod: string = "createdAt,desc";
+
 
   constructor(private productService: ProductService) {
   }
@@ -19,14 +21,45 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe((res) => this.products = res);
+    this.productService.getProducts(this.sortMethod).subscribe((res) => this.products = res);
   }
 
   searchByKeyword(keyword: string | null) {
     if (keyword === null || keyword === "") {
-      this.productService.getProducts().subscribe((res) => this.products = res);
+      this.productService.getProducts(this.sortMethod).subscribe((res) => this.products = res);
     } else {
-      this.productService.searchByKeyword(keyword).subscribe((res) => this.products = res)
+      this.productService.searchByKeyword(keyword, this.sortMethod).subscribe((res) => this.products = res)
+    }
+  }
+
+  changeSortingMethod(method: string | null) {
+    if (method !== null) {
+      switch (method) {
+        case "dateasc": {
+          this.sortMethod = "createdAt,asc";
+          break;
+        }
+        case "datedesc": {
+          this.sortMethod = "createdAt,desc";
+          break;
+        }
+        case "nameasc": {
+          this.sortMethod = "name,asc";
+          break;
+        }
+        case "namedesc": {
+          this.sortMethod = "name,desc";
+          break;
+        }
+        case "priceasc": {
+          this.sortMethod = "price,asc";
+          break;
+        }
+        case "pricedesc": {
+          this.sortMethod = "price,desc";
+          break;
+        }
+      }
     }
   }
 }

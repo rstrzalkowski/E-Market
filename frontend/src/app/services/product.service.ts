@@ -13,12 +13,12 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=createdAt,desc&size=8`);
+  getProducts(sortMethod: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=${sortMethod}&size=8`);
   }
 
-  searchByKeyword(keyword: string) {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products/search/${keyword}?sort=createdAt,desc&size=8`);
+  searchByKeyword(keyword: string, sortMethod: string) {
+    return this.http.get<Product[]>(`${environment.apiUrl}/products/search/${keyword}?sort=${sortMethod}&size=8`);
   }
 
 }

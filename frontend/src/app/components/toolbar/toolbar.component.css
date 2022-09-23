@@ -10,9 +10,11 @@
 
 .search-label {
   padding-top: 15px;
+  margin-bottom: 5px;
   font-family: 'Poppins', 'sans-serif';
   font-size: 25px;
   text-align: center;
+  font-weight: bold;
 }
 
 .search-window {
@@ -28,6 +30,49 @@
   border-radius: 2px;
   justify-content: space-between;
   box-shadow: 0 0 3px 1px;
+}
+
+
+legend {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+fieldset {
+  width: 90%;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.sort-container {
+  margin-top: 50px;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.sort-container p {
+  font-family: Poppins, sans-serif;
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.sort-option-list {
+  text-align: right;
+  padding-right: 66px;
+}
+
+.sort-option-item {
+  font-size: 18px;
+  list-style-type: none;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.first {
+  margin-top: 20px;
 }
 
 

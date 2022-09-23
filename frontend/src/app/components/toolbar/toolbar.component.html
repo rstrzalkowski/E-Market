@@ -3,16 +3,30 @@
   <div class="search-div">
     <input [formControl]="searchControl" class="search-window" placeholder="Type keyword e.g spring" type="text">
   </div>
+  <div class="sort-container">
+    <fieldset>
+      <legend>Sort by</legend>
+      <ul class="sort-option-list">
+        <label class="sort-option-item">Date desc <input [formControl]="sortControl" name="sort" type="radio"
+                                                         value="datedesc">
+        </label>
+        <label class="sort-option-item">Date asc <input [formControl]="sortControl" name="sort" type="radio"
+                                                        value="dateasc">
+        </label>
+        <label class="sort-option-item first">Name desc <input [formControl]="sortControl" name="sort" type="radio"
+                                                               value="namedesc">
+        </label>
+        <label class="sort-option-item">Name asc <input [formControl]="sortControl" name="sort" type="radio"
+                                                        value="nameasc">
+        </label>
+        <label class="sort-option-item first">Price desc <input [formControl]="sortControl" name="sort" type="radio"
+                                                                value="pricedesc">
+        </label>
+        <label class="sort-option-item">Price asc <input [formControl]="sortControl" name="sort" type="radio"
+                                                         value="priceasc">
+        </label>
+      </ul>
+    </fieldset>
+  </div>
 
-  <p>Filter</p>
-  <ul style="padding: 10px;">
-    <li>Min price</li>
-    <li>Max price</li>
-  </ul>
-  <p>Sort by</p>
-  <ul style="padding: 10px;">
-    <li>Name</li>
-    <li>Price</li>
-    <li>Amount</li>
-  </ul>
 </div>

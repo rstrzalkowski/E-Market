@@ -1,8 +1,7 @@
 <div class="toolbar-container">
-  <p class="search-label">Search for product</p>
+  <p class="search-label">Dynamic search</p>
   <div class="search-div">
-    <input class="search-window" type="text">
-    <button class="search-button"></button>
+    <input [formControl]="searchControl" class="search-window" placeholder="Type keyword e.g spring" type="text">
   </div>
 
   <p>Filter</p>

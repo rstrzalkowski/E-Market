@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {HomeComponent} from './components/home/home.component';
 import {LoginFormComponent} from './components/login-form/login-form.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ProductItemComponent} from './components/product-item/product-item.component';
 import {RegisterFormComponent} from './components/register-form/register-form.component';
@@ -37,6 +37,7 @@ import {CartComponent} from './components/cart/cart.component';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,11 +9,16 @@ import {Observable} from "rxjs";
 })
 export class ProductService {
 
+
   constructor(private http: HttpClient) {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=createdAt,desc&size=8`)
+    return this.http.get<Product[]>(`${environment.apiUrl}/products?sort=createdAt,desc&size=8`);
+  }
+
+  searchByKeyword(keyword: string) {
+    return this.http.get<Product[]>(`${environment.apiUrl}/products/search/${keyword}?sort=createdAt,desc&size=8`);
   }
 
 }

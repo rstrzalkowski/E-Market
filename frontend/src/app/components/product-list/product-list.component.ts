@@ -22,4 +22,11 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe((res) => this.products = res);
   }
 
+  searchByKeyword(keyword: string | null) {
+    if (keyword === null || keyword === "") {
+      this.productService.getProducts().subscribe((res) => this.products = res);
+    } else {
+      this.productService.searchByKeyword(keyword).subscribe((res) => this.products = res)
+    }
+  }
 }

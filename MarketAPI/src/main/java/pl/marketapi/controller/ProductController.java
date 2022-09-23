@@ -22,8 +22,8 @@ public class ProductController {
         return productService.getAll(page).toList();
     }
 
-    @GetMapping("/products/search")
-    public List<Product> searchByKeyword(@RequestParam String keyword, Pageable page) {
+    @GetMapping("/products/search/{keyword}")
+    public List<Product> searchByKeyword(@PathVariable String keyword, Pageable page) {
         return productService.getByKeyword(keyword, page).get().toList();
     }
 

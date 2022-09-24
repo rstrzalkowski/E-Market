@@ -1,3 +1,8 @@
+export interface ProductPage {
+  content: Product[],
+  totalPages: number
+}
+
 export interface Product {
   id: number,
   name: string,

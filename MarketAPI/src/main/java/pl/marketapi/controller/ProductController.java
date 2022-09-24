@@ -1,13 +1,12 @@
 package pl.marketapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.marketapi.domain.entity.Product;
 import pl.marketapi.service.ProductService;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -18,13 +17,13 @@ public class ProductController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products")
-    public List<Product> getAll(Pageable page) {
-        return productService.getAll(page).toList();
+    public Page<Product> getAll(Pageable page) {
+        return productService.getAll(page);
     }
 
     @GetMapping("/products/search/{keyword}")
-    public List<Product> searchByKeyword(@PathVariable String keyword, Pageable page) {
-        return productService.getByKeyword(keyword, page).get().toList();
+    public Page<Product> searchByKeyword(@PathVariable String keyword, Pageable page) {
+        return productService.getByKeyword(keyword, page);
     }
 
     @ResponseStatus(HttpStatus.OK)

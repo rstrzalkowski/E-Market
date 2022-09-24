@@ -29,22 +29,42 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     this.productService.getProducts(this.sortMethod, this.actualPage).subscribe((res) => {
-      this.products = res;
-      this.totalPages$.next(2); //TODO
+      this.products = res.content;
+
+      this.totalPages = res.totalPages;
+      this.totalPages$.next(this.totalPages);
+
+      if (this.actualPage > res.totalPages) {
+        this.actualPage = 0;
+        this.actualPage$.next(0)
+      }
     });
   }
 
   searchByKeyword(keyword: string | null) {
     if (keyword === null || keyword === "") {
       this.productService.getProducts(this.sortMethod, this.actualPage).subscribe((res) => {
-        this.products = res
-        this.totalPages$.next(2);//TODO get total pages from http response
+        this.products = res.content
+
+        this.totalPages = res.totalPages;
+        this.totalPages$.next(this.totalPages);
+        this.resetToFirstPageIfNecessary();
       });
     } else {
       this.productService.searchByKeyword(keyword, this.sortMethod, this.actualPage).subscribe((res) => {
-        this.products = res
-        this.totalPages$.next(2);//TODO
+        this.products = res.content
+
+        this.totalPages = res.totalPages;
+        this.totalPages$.next(this.totalPages);
+        this.resetToFirstPageIfNecessary();
       })
+    }
+  }
+
+  resetToFirstPageIfNecessary() {
+    if (this.actualPage > this.totalPages - 1) {
+      this.actualPage = 0;
+      this.actualPage$.next(0);
     }
   }
 

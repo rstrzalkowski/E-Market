@@ -46,7 +46,7 @@ export class ToolbarComponent implements OnInit {
 
   onSortChange(newSortMethod: string | null) {
     this.onSortChangeEvent.emit(newSortMethod);
-    this.onSearch(this.searchControl.getRawValue())
+    this.onSearch(this.searchControl.value)
   }
 
   previousPage() {

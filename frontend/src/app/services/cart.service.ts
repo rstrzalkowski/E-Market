@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Product} from "../model/Product";
 import {BehaviorSubject} from "rxjs";
+import {ProductService} from "./product.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,26 @@ export class CartService {
   cartItems: Product[] = [];
   behaviorSubject = new BehaviorSubject<Product[]>([]);
 
-  constructor() {
+  constructor(private productService: ProductService) {
 
     let cart = localStorage.getItem('cart')
     if (cart !== null) {
       this.cartItems = JSON.parse(String(cart));
-      this.behaviorSubject.next(this.cartItems);
+      this.cartItems.forEach((item, index) => {
+        this.productService.getProduct(item).subscribe((dbProduct) => {
+          if (item.quantityInCart > dbProduct.amount) {
+            this.cartItems[index].quantityInCart = dbProduct.amount
+          }
+          this.behaviorSubject.next(this.cartItems);
+
+        }, (error) => {
+          this.cartItems = this.cartItems.filter((p) => p.id !== item.id)
+          this.behaviorSubject.next(this.cartItems);
+          console.log(this.cartItems)
+        })
+      })
+
+
     }
   }
 

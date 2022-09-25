@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.marketapi.domain.dto.JWT;
-import pl.marketapi.domain.dto.LoginRequest;
-import pl.marketapi.domain.dto.RegisterRequest;
+import pl.marketapi.domain.dto.request.LoginRequest;
+import pl.marketapi.domain.dto.request.RegisterRequest;
+import pl.marketapi.domain.dto.response.JWT;
 import pl.marketapi.domain.entity.User;
 import pl.marketapi.exception.AuthenticationException;
 import pl.marketapi.exception.InvalidCredentialsException;
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidCredentialsException("Invalid password.");
         }
 
-        return new JWT(jwtProvider.generateJWT(user));
+        return new JWT(jwtProvider.generateJWT(user), user.getEmail());
     }
 
     @Override

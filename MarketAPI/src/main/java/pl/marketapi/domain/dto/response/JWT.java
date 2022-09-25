@@ -1,4 +1,4 @@
-package pl.marketapi.domain.dto;
+package pl.marketapi.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,5 +8,5 @@ import lombok.Data;
 public class JWT {
 
     String token;
-
+    String email;
 }

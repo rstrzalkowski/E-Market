@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CartEntry {
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +21,13 @@ public class CartEntry {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    @JsonIgnore
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     @JsonIgnore
-    private Cart cart;
+    private Order order;
+
+    private int quantity;
+
 }

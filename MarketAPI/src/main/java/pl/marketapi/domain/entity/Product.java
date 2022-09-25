@@ -44,4 +44,8 @@ public class Product {
     @Column
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public void reduceAvailableAmount(int number) {
+        this.amount -= number;
+    }
 }

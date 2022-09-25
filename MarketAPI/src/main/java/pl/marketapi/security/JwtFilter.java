@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pl.marketapi.domain.dto.ErrorObject;
+import pl.marketapi.domain.dto.response.ErrorObject;
 import pl.marketapi.domain.entity.User;
 import pl.marketapi.repository.UserRepository;
 
@@ -42,7 +42,9 @@ public class JwtFilter extends OncePerRequestFilter {
         this.excludedMatchers.add(new AntPathRequestMatcher("/login"));
         this.excludedMatchers.add(new AntPathRequestMatcher("/register"));
         this.excludedMatchers.add(new AntPathRequestMatcher("/products"));
+        this.excludedMatchers.add(new AntPathRequestMatcher("/products/*"));
         this.excludedMatchers.add(new AntPathRequestMatcher("/products/search/*"));
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package pl.marketapi.domain.dto;
+package pl.marketapi.domain.dto.response;
 
 import lombok.Data;
 

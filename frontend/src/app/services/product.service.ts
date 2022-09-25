@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ProductPage} from "../model/Product";
+import {Product, ProductPage} from "../model/Product";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -13,7 +13,12 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  getProducts(sortMethod: string, page: number): Observable<ProductPage> {
+
+  getProduct(product: Product): Observable<Product> {
+    return this.http.get<Product>(`${environment.apiUrl}/products/${product.id}`)
+  }
+
+  getProducts(sortMethod: string = 'dateasc', page: number): Observable<ProductPage> {
     return this.http.get<ProductPage>(`${environment.apiUrl}/products?sort=${sortMethod}&size=8&page=${page}`);
   }
 

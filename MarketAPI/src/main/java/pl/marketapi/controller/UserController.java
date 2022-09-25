@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.marketapi.domain.dto.JWT;
-import pl.marketapi.domain.dto.LoginRequest;
-import pl.marketapi.domain.dto.RegisterRequest;
+import pl.marketapi.domain.dto.request.LoginRequest;
+import pl.marketapi.domain.dto.request.RegisterRequest;
+import pl.marketapi.domain.dto.response.JWT;
 import pl.marketapi.domain.entity.User;
 import pl.marketapi.service.UserService;
 

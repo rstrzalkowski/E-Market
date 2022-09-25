@@ -11,6 +11,12 @@ export class CartService {
   behaviorSubject = new BehaviorSubject<Product[]>([]);
 
   constructor() {
+
+    let cart = localStorage.getItem('cart')
+    if (cart !== null) {
+      this.cartItems = JSON.parse(String(cart));
+      this.behaviorSubject.next(this.cartItems);
+    }
   }
 
   getProducts() {
@@ -32,6 +38,7 @@ export class CartService {
       this.cartItems.push(product);
     }
 
+    localStorage.setItem('cart', JSON.stringify(this.cartItems))
     this.behaviorSubject.next(this.cartItems);
   }
 
@@ -45,11 +52,13 @@ export class CartService {
         }
       }
     })
+    localStorage.setItem('cart', JSON.stringify(this.cartItems))
     this.behaviorSubject.next(this.cartItems);
   }
 
   emptyCart() {
     this.cartItems = [];
+    localStorage.setItem('cart', JSON.stringify(this.cartItems))
     this.behaviorSubject.next(this.cartItems);
   }
 

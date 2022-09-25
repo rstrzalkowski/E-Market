@@ -10,7 +10,7 @@ import {Jwt} from "../model/Jwt";
 export class AuthService {
 
   authenticated: boolean = false;
-  behaviorSubjet = new BehaviorSubject<boolean>(this.authenticated);
+  behaviorSubject = new BehaviorSubject<boolean>(this.authenticated);
   jwt: string = "";
 
   constructor(private http: HttpClient) {
@@ -27,7 +27,7 @@ export class AuthService {
     } else {
       this.authenticated = false;
     }
-    this.behaviorSubjet.next(this.authenticated)
+    this.behaviorSubject.next(this.authenticated)
   }
 
   register(firstName: string, lastName: string, email: string, password: string) {
@@ -43,11 +43,11 @@ export class AuthService {
     //TODO logout in backend
     this.authenticated = false;
     this.jwt = "";
-    this.behaviorSubjet.next(this.authenticated);
+    this.behaviorSubject.next(this.authenticated);
   }
 
   isAuthenticated() {
-    return this.behaviorSubjet.asObservable();
+    return this.behaviorSubject.asObservable();
   }
 
 }

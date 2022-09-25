@@ -8,13 +8,37 @@
   margin-left: 300px;
   margin-bottom: 3vh;
   flex: 7;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-wrap: wrap;
   column-gap: 15px;
   row-gap: 11px;
   height: 100%;
   padding: 10px;
-  box-shadow: 10px 0 6px 2px;
+
+}
+
+@media only screen and (max-width: 1440px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media only screen and (min-width: 2000px) {
+  .product-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .product-container {
+    margin-left: 0;
+  }
+
+  app-toolbar {
+    display: none;
+  }
 }
 
 .no-products-available {

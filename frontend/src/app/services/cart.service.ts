@@ -19,7 +19,11 @@ export class CartService {
       this.cartItems.forEach((item, index) => {
         this.productService.getProduct(item).subscribe((dbProduct) => {
           if (item.quantityInCart > dbProduct.amount) {
-            this.cartItems[index].quantityInCart = dbProduct.amount
+            if (dbProduct.amount === 0) {
+              this.cartItems = this.cartItems.filter((p) => p.id !== item.id)
+            } else {
+              this.cartItems[index].quantityInCart = dbProduct.amount
+            }
           }
           this.behaviorSubject.next(this.cartItems);
 

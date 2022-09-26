@@ -41,12 +41,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   onSearch(keyword: string | null) {
-    this.onSearchEvent.emit(keyword)
+    this.onSearchEvent.emit(keyword);
   }
 
   onSortChange(newSortMethod: string | null) {
     this.onSortChangeEvent.emit(newSortMethod);
-    this.onSearch(this.searchControl.value)
+    this.onSearch(this.searchControl.value);
   }
 
   previousPage() {

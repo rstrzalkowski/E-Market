@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   actualPage: number = 0;
   actualPage$ = new BehaviorSubject<number>(this.actualPage)
 
-
+  
   constructor(private productService: ProductService) {
   }
 

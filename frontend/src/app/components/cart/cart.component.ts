@@ -4,6 +4,7 @@ import {CartService} from "../../services/cart.service";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {AlertifyService} from "../../services/alertify.service";
+import {Order, OrderProduct} from "../../model/Order";
 
 declare let alertify: any;
 
@@ -51,8 +52,25 @@ export class CartComponent implements OnInit {
 
   checkout() {
     if (this.isAuthenticated) {
-      alert("Payment")
-      console.log("Checking out");
+
+      let mockShipAddress = "Lodz 55";
+      const orderProducts: OrderProduct[] = [];
+
+      this.products.forEach((cartProduct) => {
+        let orderProduct = new OrderProduct(cartProduct.id, cartProduct.quantityInCart);
+        orderProducts.push(orderProduct)
+      })
+      let order = new Order(this.authService.user, mockShipAddress, orderProducts)
+      this.cartService.placeOrder(order).subscribe((response) => {
+          this.cartService.emptyCart();
+          this.alertifyService.orderPlaced();
+        }, (error) => {
+          console.log("Error")
+          this.cartService.emptyCart();
+          this.alertifyService.orderError();
+        }
+      )
+
     } else {
       this.alertifyService.info("You need to log in first.")
       this.router.navigate(["/login"]);

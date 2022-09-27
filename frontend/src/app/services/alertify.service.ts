@@ -16,8 +16,16 @@ export class AlertifyService {
     alertify.notify(message);
   }
 
+  orderPlaced() {
+    alertify.success("Order placed succesfully");
+  }
+
+  orderError() {
+    alertify.error("Error during placing order");
+  }
+
   loginError() {
-    alertify.error("Login error.").settings;
+    alertify.error("Login error.");
   }
 
   registerError() {

@@ -15,10 +15,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
     if (this.authService.authenticated && isApiUrl) {
       request = request.clone({
-          setHeaders: {Authorization: `Bearer ${this.authService.jwt}`}
+          setHeaders: {
+            Authorization: `Bearer ${this.authService.jwt}`
+          }
         }
       )
-      console.log("Added JWT to request.")
     }
     return next.handle(request);
   }

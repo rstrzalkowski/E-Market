@@ -10,6 +10,7 @@ import {Jwt} from "../model/Jwt";
 export class AuthService {
 
   authenticated: boolean = false;
+  user: string = "";
   behaviorSubject = new BehaviorSubject<boolean>(this.authenticated);
   jwt: string = "";
 
@@ -20,9 +21,10 @@ export class AuthService {
     return this.http.post<Jwt>(`${environment.apiUrl}/login`, {email, password}, {observe: 'response'});
   }
 
-  setAuthentication(result: string | undefined) {
-    if (result != undefined) {
+  setAuthentication(result: string | undefined, email: string | undefined) {
+    if (result != undefined && email != undefined) {
       this.authenticated = true;
+      this.user = email;
       this.jwt = result;
     } else {
       this.authenticated = false;

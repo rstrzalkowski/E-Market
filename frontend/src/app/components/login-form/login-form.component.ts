@@ -48,7 +48,7 @@ export class LoginFormComponent implements OnInit {
 
         this.authService.login(email.toString(), password.toString()).subscribe((result) => {
 
-          this.authService.setAuthentication(result.body?.token);
+          this.authService.setAuthentication(result.body?.token, result.body?.email);
 
           if (this.authService.authenticated) {
             this.router.navigate(['/cart']);

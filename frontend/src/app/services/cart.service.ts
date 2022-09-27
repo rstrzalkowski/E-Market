@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {Product} from "../model/Product";
 import {BehaviorSubject} from "rxjs";
 import {ProductService} from "./product.service";
+import {Order} from "../model/Order";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class CartService {
   cartItems: Product[] = [];
   behaviorSubject = new BehaviorSubject<Product[]>([]);
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private http: HttpClient) {
 
     let cart = localStorage.getItem('cart')
     if (cart !== null) {
@@ -33,8 +36,6 @@ export class CartService {
           console.log(this.cartItems)
         })
       })
-
-
     }
   }
 
@@ -59,6 +60,15 @@ export class CartService {
 
     localStorage.setItem('cart', JSON.stringify(this.cartItems))
     this.behaviorSubject.next(this.cartItems);
+  }
+
+  placeOrder(order: Order) {
+    return this.http.post(`${environment.apiUrl}/orders/place`, {
+      userEmail: order.userEmail,
+      shippingAddress: order.shippingAddress,
+      products: order.products,
+
+    }, {observe: 'response'});
   }
 
   deleteFromCart(product: Product) {

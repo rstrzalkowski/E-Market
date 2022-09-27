@@ -7,7 +7,6 @@ import pl.marketapi.domain.dto.request.PlaceOrderRequest;
 import pl.marketapi.domain.entity.Order;
 import pl.marketapi.service.OrderService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +24,7 @@ public class OrderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/orders/place")
-    public Order placeOrder(@Valid @RequestBody PlaceOrderRequest placeOrderRequest) {
+    public Order placeOrder(@RequestBody PlaceOrderRequest placeOrderRequest) {
         return orderService.placeOrder(placeOrderRequest);
     }
 

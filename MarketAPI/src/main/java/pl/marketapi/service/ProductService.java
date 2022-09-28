@@ -12,7 +12,7 @@ public interface ProductService {
 
     Product getById(Long id);
 
-    Product add(Product product);
+    Product save(Product product);
 
     void deleteById(Long id);
 }

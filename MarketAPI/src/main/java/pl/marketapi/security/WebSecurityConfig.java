@@ -30,7 +30,7 @@ public class WebSecurityConfig {
 
                 .csrf().disable().cors().and()
                 .authorizeHttpRequests((auth) -> auth
-                        .mvcMatchers("/orders/place").authenticated()
+                        .mvcMatchers("/orders").authenticated()
                         .mvcMatchers("/users/lock/**").hasRole("USER")
                         .anyRequest().permitAll()
 

@@ -23,7 +23,7 @@ public class OrderController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/orders/place")
+    @PostMapping("/orders")
     public Order placeOrder(@RequestBody PlaceOrderRequest placeOrderRequest) {
         return orderService.placeOrder(placeOrderRequest);
     }

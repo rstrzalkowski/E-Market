@@ -33,9 +33,9 @@ public class ProductController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/products/add")
+    @PostMapping("/products")
     public Product add(@RequestBody Product product) {
-        return productService.add(product);
+        return productService.save(product);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

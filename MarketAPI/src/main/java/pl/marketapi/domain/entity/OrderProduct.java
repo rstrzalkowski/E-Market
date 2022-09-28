@@ -15,19 +15,26 @@ import javax.persistence.*;
 @Entity
 public class OrderProduct {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    @JsonIgnore
+    private OrderProductId id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("productId")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("orderId")
     @JsonIgnore
     private Order order;
 
+    @Column
     private int quantity;
 
+    public OrderProduct(Product product, Order order, int quantity) {
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
+        this.id = new OrderProductId(order.getId(), product.getId());
+    }
 }

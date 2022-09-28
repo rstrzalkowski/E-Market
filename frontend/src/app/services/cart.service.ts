@@ -63,7 +63,7 @@ export class CartService {
   }
 
   placeOrder(order: Order) {
-    return this.http.post(`${environment.apiUrl}/orders/place`, {
+    return this.http.post(`${environment.apiUrl}/orders`, {
       userEmail: order.userEmail,
       shippingAddress: order.shippingAddress,
       products: order.products,

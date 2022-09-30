@@ -1,6 +1,7 @@
 package pl.marketapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.marketapi.domain.dto.request.PlaceOrderRequest;
@@ -18,8 +19,13 @@ public class OrderController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/orders")
-    public List<Order> getAll() {
-        return orderService.getAll();
+    public List<Order> getUserOrders(@RequestParam String user, Pageable page) {
+        if (user == null) {
+            return orderService.getAll();
+            // TODO to be changed
+        } else {
+            return orderService.getByUser(user, page).toList();
+        }
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -27,5 +33,6 @@ public class OrderController {
     public Order placeOrder(@RequestBody PlaceOrderRequest placeOrderRequest) {
         return orderService.placeOrder(placeOrderRequest);
     }
+
 
 }

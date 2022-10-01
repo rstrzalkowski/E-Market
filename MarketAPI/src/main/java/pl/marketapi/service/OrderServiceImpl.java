@@ -3,13 +3,13 @@ package pl.marketapi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marketapi.domain.dto.request.PlaceOrderRequest;
-import pl.marketapi.domain.dto.request.ProductInRequest;
 import pl.marketapi.domain.entity.Order;
 import pl.marketapi.domain.entity.OrderProduct;
 import pl.marketapi.domain.entity.Product;
@@ -18,6 +18,7 @@ import pl.marketapi.repository.OrderRepository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -52,11 +53,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Order placeOrder(PlaceOrderRequest placeOrderRequest) {
+    @Transactional
+    public ResponseEntity placeOrder(PlaceOrderRequest placeOrderRequest) {
 
         String userEmail = placeOrderRequest.getUserEmail();
-        List<ProductInRequest> orderContent = placeOrderRequest.getProducts();
+        Set<OrderProduct> orderProducts = placeOrderRequest.getProducts();
         String shippingAddress = placeOrderRequest.getShippingAddress();
 
         User user = userService.getByEmail(userEmail);
@@ -66,25 +67,19 @@ public class OrderServiceImpl implements OrderService {
             //TODO custom exc
         }
         Order order = new Order(user, shippingAddress);
-        order = orderRepository.save(order);
-        Order finalOrder = order;
-        orderContent.forEach((productInRequest -> {
-            Product product = productService.getById(productInRequest.getProductId());
-            OrderProduct orderProduct = new OrderProduct(
-                    product,
-                    finalOrder,
-                    productInRequest.getQuantity());
+        orderProducts.forEach(order::addProduct);
+        orderRepository.save(order);
+        orderProducts.forEach((orderProduct -> {
+            Product product = productService.getById(orderProduct.getProductId());
 
-            if (productInRequest.getQuantity() > product.getAmount()) {
+            if (orderProduct.getQuantity() > product.getAmount()) {
                 throw new RuntimeException("Error creating order");
                 //TODO custom exc
             }
-            product.reduceAvailableAmount(productInRequest.getQuantity());
-            Product savedProduct = productService.save(product);
-            finalOrder.addProduct(orderProduct);
-
+            product.reduceAvailableAmount(orderProduct.getQuantity());
+            productService.save(product);
         }));
 
-        return orderRepository.save(finalOrder);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

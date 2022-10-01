@@ -1,6 +1,5 @@
 package pl.marketapi.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,26 +14,25 @@ import javax.persistence.*;
 @Entity
 public class OrderProduct {
 
-    @EmbeddedId
-    @JsonIgnore
-    private OrderProductId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("productId")
-    private Product product;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("orderId")
-    @JsonIgnore
+    @Column(name = "product_id")
+    private Long productId;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Column
     private int quantity;
 
-    public OrderProduct(Product product, Order order, int quantity) {
-        this.product = product;
+    public OrderProduct(Long productId, Order order, int quantity) {
+        this.productId = productId;
         this.order = order;
         this.quantity = quantity;
-        this.id = new OrderProductId(order.getId(), product.getId());
     }
 }

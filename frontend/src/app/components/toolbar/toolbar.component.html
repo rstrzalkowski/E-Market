@@ -35,7 +35,7 @@
     <div class="actual">{{actualPage + 1}}</div>
 
     <div (click)="nextPage()" *ngIf="actualPage < totalPages - 1" class="next">Next</div>
-    <div *ngIf="actualPage === totalPages - 1" class="next-disabled">Next</div>
+    <div *ngIf="actualPage === totalPages - 1 || totalPages === 0" class="next-disabled">Next</div>
   </div>
 
 </div>

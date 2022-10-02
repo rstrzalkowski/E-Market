@@ -36,6 +36,9 @@ export class ToolbarComponent implements OnInit {
     })
 
     this.totalPagesObservable.subscribe((pages) => {
+      if (pages === 0) {
+        this.totalPages = 1;
+      }
       this.totalPages = pages;
     })
   }

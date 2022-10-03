@@ -1,7 +1,8 @@
 export class Order {
   userEmail: string;
   shippingAddress: string;
-  products: OrderProduct[]
+  products: OrderProduct[];
+  orderDate: Date = new Date();
 
   constructor(userEmail: string, shippingAddress: string, products: OrderProduct[]) {
     this.userEmail = userEmail;
@@ -13,7 +14,6 @@ export class Order {
 export class OrderProduct {
   productId: number;
   quantity: number;
-
 
   constructor(productId: number, quantity: number) {
     this.productId = productId;

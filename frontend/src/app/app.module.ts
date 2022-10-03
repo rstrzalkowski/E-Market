@@ -18,6 +18,7 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {CartComponent} from './components/cart/cart.component';
 import {TokenInterceptor} from "./interceptors/token.interceptor";
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { OrderListComponent } from './components/order-list/order-list.component
     ProductListComponent,
     ToolbarComponent,
     CartComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

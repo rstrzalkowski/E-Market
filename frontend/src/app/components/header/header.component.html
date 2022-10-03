@@ -14,7 +14,7 @@
     <p *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></p>
     <p *ngIf="!isAuthenticated"><a routerLink="">Sign up</a></p>
 
-    <p *ngIf="isAuthenticated"><a routerLink="/settings">Settings</a></p>
+    <p *ngIf="isAuthenticated"><a routerLink="/orders">Orders</a></p>
     <p *ngIf="isAuthenticated"><a (click)="logOut()" routerLink="/login">Log out</a></p>
   </div>
 </div>

@@ -1,5 +1,6 @@
 package pl.marketapi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,10 @@ public class OrderProduct {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     @Column
     private int quantity;
 
-    public OrderProduct(Long productId, Order order, int quantity) {
-        this.productId = productId;
-        this.order = order;
-        this.quantity = quantity;
-    }
 }

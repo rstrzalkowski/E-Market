@@ -31,7 +31,7 @@ public class OrderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/orders")
-    public ResponseEntity placeOrder(@RequestBody PlaceOrderRequest placeOrderRequest) {
+    public ResponseEntity<Order> placeOrder(@RequestBody PlaceOrderRequest placeOrderRequest) {
         return orderService.placeOrder(placeOrderRequest);
     }
 

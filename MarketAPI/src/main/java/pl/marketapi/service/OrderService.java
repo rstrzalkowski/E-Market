@@ -14,7 +14,7 @@ public interface OrderService {
 
     Page<Order> getByUser(String email, Pageable page);
 
-    ResponseEntity placeOrder(PlaceOrderRequest placeOrderRequest);
+    ResponseEntity<Order> placeOrder(PlaceOrderRequest placeOrderRequest);
 
 
 }

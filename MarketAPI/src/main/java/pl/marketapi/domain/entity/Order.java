@@ -57,7 +57,7 @@ public class Order {
     public Order(User user, String shippingAddress) {
         this.user = user;
         this.shippingAddress = shippingAddress;
-        this.orderDate = null;
+        this.orderDate = new Date();
         this.paid = false;
         this.realized = false;
     }

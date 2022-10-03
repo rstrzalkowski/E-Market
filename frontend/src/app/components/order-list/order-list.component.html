@@ -1,1 +1,29 @@
-<p>order-list works!</p>
+<div class="container">
+  <div *ngIf="orders.length === 0" class="empty-cart-container">
+    <h1>You don't have any orders</h1>
+  </div>
+
+  <div *ngIf="orders.length > 0" class="cart-with-items">
+    <table class="product-list">
+      <tr>
+        <th>No.</th>
+        <th>Date</th>
+        <th>Shipping address</th>
+        <th>Total price</th>
+        <th>Action</th>
+      </tr>
+
+      <tr *ngFor="let product of orders, let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{product.orderDate}}</td>
+        <td>{{product.shippingAddress}}</td>
+        <td>100</td>
+        <td class="last-td">
+          <button (click)="showOrderDetails(product)" class="details-button"></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+</div>

@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public ResponseEntity placeOrder(PlaceOrderRequest placeOrderRequest) {
+    public ResponseEntity<Order> placeOrder(PlaceOrderRequest placeOrderRequest) {
 
         String userEmail = placeOrderRequest.getUserEmail();
         Set<OrderProduct> orderProducts = placeOrderRequest.getProducts();
@@ -80,6 +80,6 @@ public class OrderServiceImpl implements OrderService {
             productService.save(product);
         }));
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }

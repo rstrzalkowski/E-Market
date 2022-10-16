@@ -27,7 +27,7 @@ import java.util.Set;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "order_seq")
     @Column(name = "order_id")
     private Long id;
 
@@ -63,8 +63,8 @@ public class Order {
     }
 
     public void addProduct(OrderProduct orderProduct) {
-        products.add(orderProduct);
         orderProduct.setOrder(this);
+        products.add(orderProduct);
     }
 
 }

@@ -1,3 +1,5 @@
+import {Product} from "./Product";
+
 export class Order {
   userEmail: string;
   shippingAddress: string;
@@ -12,11 +14,19 @@ export class Order {
 }
 
 export class OrderProduct {
-  productId: number;
+  product: Product;
   quantity: number;
 
   constructor(productId: number, quantity: number) {
-    this.productId = productId;
+    this.product = {
+      amount: 0,
+      description: "",
+      imageUrl: "",
+      name: "",
+      price: 0,
+      quantityInCart: 0,
+      id: productId
+    };
     this.quantity = quantity;
   }
 }

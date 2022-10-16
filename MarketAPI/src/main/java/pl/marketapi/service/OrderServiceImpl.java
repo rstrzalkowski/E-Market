@@ -70,7 +70,8 @@ public class OrderServiceImpl implements OrderService {
         orderProducts.forEach(order::addProduct);
         orderRepository.save(order);
         orderProducts.forEach((orderProduct -> {
-            Product product = productService.getById(orderProduct.getProductId());
+            
+            Product product = productService.getById(orderProduct.getProduct().getId());
 
             if (orderProduct.getQuantity() > product.getAmount()) {
                 throw new RuntimeException("Error creating order");

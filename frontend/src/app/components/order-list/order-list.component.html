@@ -1,27 +1,32 @@
-<div class="container">
-  <div *ngIf="orders.length === 0" class="empty-cart-container">
+<div class="m-5 mt-3 order-container text-center">
+  <div *ngIf="orders.length === 0" class="empty-orders-container">
     <h1>You don't have any orders</h1>
   </div>
 
   <div *ngIf="orders.length > 0" class="cart-with-items">
-    <table class="product-list">
+    <table class="table table-bordered w-100 table-striped">
+      <thead class="table-primary">
       <tr>
-        <th>No.</th>
-        <th>Date</th>
-        <th>Shipping address</th>
-        <th>Total price</th>
-        <th>Action</th>
+        <th scope="col">No.</th>
+        <th scope="col">Date</th>
+        <th scope="col">Shipping address</th>
+        <th scope="col">Total price</th>
+        <th scope="col">Action</th>
       </tr>
+      </thead>
 
+      <tbody>
       <tr *ngFor="let product of orders, let i = index">
-        <td>{{i + 1}}</td>
+        <th scope="row">{{i + 1}}</th>
         <td>{{product.orderDate}}</td>
         <td>{{product.shippingAddress}}</td>
         <td>100</td>
         <td class="last-td">
-          <button (click)="showOrderDetails(product)" class="details-button"></button>
+          <button (click)="showOrderDetails(product)" class="btn btn-primary">Details</button>
         </td>
       </tr>
+      </tbody>
+
     </table>
   </div>
 

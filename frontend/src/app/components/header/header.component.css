@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 
-.header {
+.my_header {
   display: flex;
   font-family: 'Poppins', 'sans-serif';
   min-height: 8vh;
@@ -38,7 +38,7 @@
   justify-content: space-around;
 }
 
-.header a {
+.my_header a {
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 18px;
@@ -47,7 +47,7 @@
   transition-duration: 0.3s;
 }
 
-.header a:hover {
+.my_header a:hover {
   color: darkseagreen;
 }
 
